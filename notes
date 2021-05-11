@@ -1,9 +1,24 @@
+document similarity
+
+https://discuss.huggingface.co/t/clustering-news-articles-with-sentence-bert/3361
+
+https://towardsdatascience.com/topic-modeling-with-bert-779f7db187e6
+
+https://medium.com/@adriensieg/text-similarities-da019229c894
+
+
+--------------------------------------------
+pip install sentence-transformers
+pip install umap-learn
+
+---------------------------------
+
 list of rss feeds:
 
 https://blog.feedspot.com/indian_news_rss_feeds/
 
-'https://timesofindia.indiatimes.com/rssfeedstopstories.cms'
-'http://feeds.feedburner.com/NDTV-LatestNews'
+https://timesofindia.indiatimes.com/rssfeedstopstories.cms
+http://feeds.feedburner.com/NDTV-LatestNews
 https://www.indiatoday.in/rss/1206578
 https://indianexpress.com/feed/
 https://www.thehindu.com/news/national/?service=rss
@@ -133,7 +148,645 @@ https://prod-qt-images.s3.amazonaws.com/production/thequint/feed.xml
 
 
 
+create sources and links dictionary for bookkeeping
 
+source_list = ['TOI India',
+'TOI Most Recent Stories',
+'TOI World',
+'NDTV',
+'India Today',
+'The Indian Express General Feed',
+'The Indian Express Front Page Feed',
+'The Hindu National Feed',
+'The Hindu Default feed',
+'News18',
+'Business Standard',
+'DNA India',
+'Deccan Chronicle',
+'Scroll',
+'Financial Express',
+'The Hindu Business Line',
+'Free Press Journal',
+'Outlook India',
+'The Quint']
+
+links_list = ['http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms',
+'http://timesofindia.indiatimes.com/rssfeeds/1221656.cms',
+'http://timesofindia.indiatimes.com/rssfeeds/296589292.cms',
+'http://feeds.feedburner.com/NDTV-LatestNews',
+'https://www.indiatoday.in/rss/1206578',
+'https://indianexpress.com/feed/',
+'https://indianexpress.com/print/front-page/feed/',
+'https://www.thehindu.com/news/national/?service=rss',
+'https://www.thehindu.com/news/feeder/default.rss',
+'http://www.news18.com/rss/india.xml',
+'https://www.business-standard.com/rss/latest.rss',
+'https://www.dnaindia.com/feeds/india.xml',
+'https://www.deccanchronicle.com/rss_feed/',
+'http://feeds.feedburner.com/ScrollinArticles.rss',
+'http://www.financialexpress.com/feed',
+'https://www.thehindubusinessline.com/?service=rss',
+'https://prod-qt-images.s3.amazonaws.com/production/freepressjournal/feed.xml',
+'http://www.outlookindia.com/rss/home',
+'https://prod-qt-images.s3.amazonaws.com/production/thequint/feed.xml']
+
+sources = dict(zip(source_list, links_list))
+
+
+
+
+
+======================================================
+
+
+
+{'guidislink': False,
+ 'id': 'https://timesofindia.indiatimes.com/india/over-staying-covid-patients-in-hospitals-should-go-home-bs-yediyurappa/articleshow/82546613.cms',
+ 'link': 'https://timesofindia.indiatimes.com/india/over-staying-covid-patients-in-hospitals-should-go-home-bs-yediyurappa/articleshow/82546613.cms',
+ 'links': [{'href': 'https://timesofindia.indiatimes.com/india/over-staying-covid-patients-in-hospitals-should-go-home-bs-yediyurappa/articleshow/82546613.cms',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Tue, 11 May 2021 15:44:02 IST',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=15, tm_min=44, tm_sec=2, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': '<a '
+            'href="https://timesofindia.indiatimes.com/india/over-staying-covid-patients-in-hospitals-should-go-home-bs-yediyurappa/articleshow/82546613.cms"><img '
+            'align="left" border="0" hspace="10" '
+            'src="https://timesofindia.indiatimes.com/photo/82546613.cms" '
+            'style="margin-top: 3px; margin-right: 5px;" /></a>',
+ 'summary_detail': {'base': 'https://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms',
+                    'language': 'en-US',
+                    'type': 'text/html',
+                    'value': '<a '
+                             'href="https://timesofindia.indiatimes.com/india/over-staying-covid-patients-in-hospitals-should-go-home-bs-yediyurappa/articleshow/82546613.cms"><img '
+                             'align="left" border="0" hspace="10" '
+                             'src="https://timesofindia.indiatimes.com/photo/82546613.cms" '
+                             'style="margin-top: 3px; margin-right: 5px;" '
+                             '/></a>'},
+ 'title': 'Over-staying Covid patients in hospitals should go home: BS '
+          'Yediyurappa',
+ 'title_detail': {'base': 'https://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms',
+                  'language': 'en-US',
+                  'type': 'text/plain',
+                  'value': 'Over-staying Covid patients in hospitals should go '
+                           'home: BS Yediyurappa'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'guidislink': False,
+ 'id': 'https://timesofindia.indiatimes.com/elections/lok-sabha-elections-2019/madhya-pradesh/news/pragya-thakur-on-temple-run-after-ec-curbs-on-campaigning/articleshow/69151208.cms',
+ 'link': 'https://timesofindia.indiatimes.com/elections/lok-sabha-elections-2019/madhya-pradesh/news/pragya-thakur-on-temple-run-after-ec-curbs-on-campaigning/articleshow/69151208.cms',
+ 'links': [{'href': 'https://timesofindia.indiatimes.com/elections/lok-sabha-elections-2019/madhya-pradesh/news/pragya-thakur-on-temple-run-after-ec-curbs-on-campaigning/articleshow/69151208.cms',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Thu, 02 May 2019 22:38:21 IST',
+ 'published_parsed': time.struct_time(tm_year=2019, tm_mon=5, tm_mday=2, tm_hour=22, tm_min=38, tm_sec=21, tm_wday=3, tm_yday=122, tm_isdst=0),
+ 'summary': '<a '
+            'href="https://timesofindia.indiatimes.com/elections/lok-sabha-elections-2019/madhya-pradesh/news/pragya-thakur-on-temple-run-after-ec-curbs-on-campaigning/articleshow/69151208.cms"><img '
+            'align="left" border="0" hspace="10" '
+            'src="https://timesofindia.indiatimes.com/photo/69151208.cms" '
+            'style="margin-top: 3px; margin-right: 5px;" /></a>Malegaon blast '
+            "accused and BJP's Lok Sabha candidate Pragya Singh Thakur went on "
+            'a temple run on Thursday, a day after the Election Commission '
+            'imposed a 72-hour campaigning ban on her. The EC ban followed '
+            'complaints against Thakur for her offensive remark against 26/11 '
+            'Mumbai terror attacks martyr Hemant Karkare',
+ 'summary_detail': {'base': 'https://timesofindia.indiatimes.com/rssfeeds/1221656.cms',
+                    'language': 'en-US',
+                    'type': 'text/html',
+                    'value': '<a '
+                             'href="https://timesofindia.indiatimes.com/elections/lok-sabha-elections-2019/madhya-pradesh/news/pragya-thakur-on-temple-run-after-ec-curbs-on-campaigning/articleshow/69151208.cms"><img '
+                             'align="left" border="0" hspace="10" '
+                             'src="https://timesofindia.indiatimes.com/photo/69151208.cms" '
+                             'style="margin-top: 3px; margin-right: 5px;" '
+                             "/></a>Malegaon blast accused and BJP's Lok Sabha "
+                             'candidate Pragya Singh Thakur went on a temple '
+                             'run on Thursday, a day after the Election '
+                             'Commission imposed a 72-hour campaigning ban on '
+                             'her. The EC ban followed complaints against '
+                             'Thakur for her offensive remark against 26/11 '
+                             'Mumbai terror attacks martyr Hemant Karkare'},
+ 'title': "Pragya Thakur on 'temple run' after EC curbs on campaigning",
+ 'title_detail': {'base': 'https://timesofindia.indiatimes.com/rssfeeds/1221656.cms',
+                  'language': 'en-US',
+                  'type': 'text/plain',
+                  'value': "Pragya Thakur on 'temple run' after EC curbs on "
+                           'campaigning'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'guidislink': False,
+ 'id': 'https://timesofindia.indiatimes.com/world/pakistan/pak-says-indian-variant-of-covid-19-not-present-in-country/articleshow/82546850.cms',
+ 'link': 'https://timesofindia.indiatimes.com/world/pakistan/pak-says-indian-variant-of-covid-19-not-present-in-country/articleshow/82546850.cms',
+ 'links': [{'href': 'https://timesofindia.indiatimes.com/world/pakistan/pak-says-indian-variant-of-covid-19-not-present-in-country/articleshow/82546850.cms',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Tue, 11 May 2021 15:52:24 IST',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=15, tm_min=52, tm_sec=24, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': '<a '
+            'href="https://timesofindia.indiatimes.com/world/pakistan/pak-says-indian-variant-of-covid-19-not-present-in-country/articleshow/82546850.cms"><img '
+            'align="left" border="0" hspace="10" '
+            'src="https://timesofindia.indiatimes.com/photo/82546850.cms" '
+            'style="margin-top: 3px; margin-right: 5px;" /></a>According to '
+            'reports, health authorities in Thailand on Monday confirmed the '
+            "country's first cases of the Indian variant of the coronavirus, "
+            'in a Thai woman and her 4-year-old son who have been in state '
+            'quarantine since arriving from Pakistan.',
+ 'summary_detail': {'base': 'https://timesofindia.indiatimes.com/rssfeeds/296589292.cms',
+                    'language': 'en-US',
+                    'type': 'text/html',
+                    'value': '<a '
+                             'href="https://timesofindia.indiatimes.com/world/pakistan/pak-says-indian-variant-of-covid-19-not-present-in-country/articleshow/82546850.cms"><img '
+                             'align="left" border="0" hspace="10" '
+                             'src="https://timesofindia.indiatimes.com/photo/82546850.cms" '
+                             'style="margin-top: 3px; margin-right: 5px;" '
+                             '/></a>According to reports, health authorities '
+                             "in Thailand on Monday confirmed the country's "
+                             'first cases of the Indian variant of the '
+                             'coronavirus, in a Thai woman and her 4-year-old '
+                             'son who have been in state quarantine since '
+                             'arriving from Pakistan.'},
+ 'title': 'Indian variant of Covid not present in country: Pak',
+ 'title_detail': {'base': 'https://timesofindia.indiatimes.com/rssfeeds/296589292.cms',
+                  'language': 'en-US',
+                  'type': 'text/plain',
+                  'value': 'Indian variant of Covid not present in country: '
+                           'Pak'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'feedburner_origlink': 'https://gadgets.ndtv.com/apps/news/pubg-mobile-battlegrounds-india-sanhok-map-teased-facebook-krafton-release-date-mystery-4x4-2439537',
+ 'fullimage': 'https://i.gadgets360cdn.com/large/Battlegrounds_mobile_india_sanhok_1620727159288.jpg',
+ 'guidislink': False,
+ 'id': '2439537',
+ 'link': 'http://feedproxy.google.com/~r/NDTV-LatestNews/~3/z24Kn_iKxyA/pubg-mobile-battlegrounds-india-sanhok-map-teased-facebook-krafton-release-date-mystery-4x4-2439537',
+ 'links': [{'href': 'http://feedproxy.google.com/~r/NDTV-LatestNews/~3/z24Kn_iKxyA/pubg-mobile-battlegrounds-india-sanhok-map-teased-facebook-krafton-release-date-mystery-4x4-2439537',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Tue, 11 May 2021 15:41:54 +0530',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=11, tm_sec=54, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'storyimage': 'https://i.gadgets360cdn.com/large/Battlegrounds_mobile_india_sanhok_small_1620727173020.jpg',
+ 'summary': 'Battlegrounds Mobile India will include the popular Sanhok map as '
+            'per the teaser poster shared by the developers on Facebook. The '
+            'poster does not share any information on the release date of the '
+            'game.<img alt="" height="1" '
+            'src="http://feeds.feedburner.com/~r/NDTV-LatestNews/~4/z24Kn_iKxyA" '
+            'width="1" />',
+ 'summary_detail': {'base': 'http://feeds.feedburner.com/NDTV-LatestNews',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': 'Battlegrounds Mobile India will include the '
+                             'popular Sanhok map as per the teaser poster '
+                             'shared by the developers on Facebook. The poster '
+                             'does not share any information on the release '
+                             'date of the game.<img alt="" height="1" '
+                             'src="http://feeds.feedburner.com/~r/NDTV-LatestNews/~4/z24Kn_iKxyA" '
+                             'width="1" />'},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'Apps'}],
+ 'title': 'Battlegrounds Mobile India Teases Sanhok Map, Release Date Still a '
+          'Mystery',
+ 'title_detail': {'base': 'http://feeds.feedburner.com/NDTV-LatestNews',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'Battlegrounds Mobile India Teases Sanhok Map, '
+                           'Release Date Still a Mystery'},
+ 'updatedat': 'May 11, 2021 03:41 PM'}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'link': 'https://www.indiatoday.in/india/telangana/story/telangana-imposes-lockdown-covid-19-surge-1801290-2021-05-11?utm_source=rss',
+ 'links': [{'href': 'https://www.indiatoday.in/india/telangana/story/telangana-imposes-lockdown-covid-19-surge-1801290-2021-05-11?utm_source=rss',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Tue, 11 May 2021 09:45:58 GMT',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=9, tm_min=45, tm_sec=58, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': '<a '
+            'href="https://www.indiatoday.in/india/telangana/story/telangana-imposes-lockdown-covid-19-surge-1801290-2021-05-11"> '
+            '<img align="left" alt="" border="0" height="180" hspace="2" '
+            'src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202105/Hyd-647x363.jpeg?4cRxRVhJR1K1sLqOhNGhlTjBFCj9I.hs" '
+            'width="305" /> </a> Telangana imposes 10-day lockdown from May 12 '
+            'amid Covid-19 surge',
+ 'summary_detail': {'base': 'https://www.indiatoday.in/rss/1206578',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': '<a '
+                             'href="https://www.indiatoday.in/india/telangana/story/telangana-imposes-lockdown-covid-19-surge-1801290-2021-05-11"> '
+                             '<img align="left" alt="" border="0" height="180" '
+                             'hspace="2" '
+                             'src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202105/Hyd-647x363.jpeg?4cRxRVhJR1K1sLqOhNGhlTjBFCj9I.hs" '
+                             'width="305" /> </a> Telangana imposes 10-day '
+                             'lockdown from May 12 amid Covid-19 surge'},
+ 'title': 'Telangana imposes 10-day lockdown from May 12 amid Covid-19 surge',
+ 'title_detail': {'base': 'https://www.indiatoday.in/rss/1206578',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'Telangana imposes 10-day lockdown from May 12 amid '
+                           'Covid-19 surge'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': '',
+ 'authors': [{}],
+ 'content': [{'base': 'https://indianexpress.com/feed/',
+              'language': None,
+              'type': 'text/html',
+              'value': ''}],
+ 'guidislink': False,
+ 'id': 'https://indianexpress.com/?post_type=article&p=7310723',
+ 'link': 'https://indianexpress.com/article/books-and-literature/ruskin-bonds-new-book-will-be-out-on-his-87th-birthday-7310723/',
+ 'links': [{'href': 'https://indianexpress.com/article/books-and-literature/ruskin-bonds-new-book-will-be-out-on-his-87th-birthday-7310723/',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Tue, 11 May 2021 10:28:01 +0000',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=28, tm_sec=1, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': '',
+ 'summary_detail': {'base': 'https://indianexpress.com/feed/',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': ''},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'Books and Literature'}],
+ 'title': 'Ruskin Bond’s new book to be out on his 87th birthday',
+ 'title_detail': {'base': 'https://indianexpress.com/feed/',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'Ruskin Bond’s new book to be out on his 87th '
+                           'birthday'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': '',
+ 'authors': [{}],
+ 'content': [{'base': 'https://indianexpress.com/print/front-page/feed/',
+              'language': None,
+              'type': 'text/html',
+              'value': ''}],
+ 'guidislink': False,
+ 'id': 'https://indianexpress.com/?post_type=article&p=7310232',
+ 'link': 'https://indianexpress.com/article/india/mamata-shuffles-around-few-ministers-retains-key-portfolios-7310232/',
+ 'links': [{'href': 'https://indianexpress.com/article/india/mamata-shuffles-around-few-ministers-retains-key-portfolios-7310232/',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Tue, 11 May 2021 00:34:24 +0000',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=0, tm_min=34, tm_sec=24, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': '',
+ 'summary_detail': {'base': 'https://indianexpress.com/print/front-page/feed/',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': ''},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'India'}],
+ 'title': 'Mamata shuffles around few ministers, retains key portfolios',
+ 'title_detail': {'base': 'https://indianexpress.com/print/front-page/feed/',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'Mamata shuffles around few ministers, retains key '
+                           'portfolios'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': 'PTI',
+ 'author_detail': {'name': 'PTI'},
+ 'authors': [{'name': 'PTI'}],
+ 'link': 'https://www.thehindu.com/news/national/pm-modi-hails-scientists-innovators-for-contribution-in-combating-covid-19/article34534370.ece',
+ 'links': [{'href': 'https://www.thehindu.com/news/national/pm-modi-hails-scientists-innovators-for-contribution-in-combating-covid-19/article34534370.ece',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Tue, 11 May 2021 15:50:25 +0530',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=20, tm_sec=25, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': 'National Technology Day marks the anniversary of the underground '
+            'nuclear tests conducted in Rajasthan’s Pokhran in 1998',
+ 'summary_detail': {'base': 'https://www.thehindu.com/news/national/?service=rss',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': 'National Technology Day marks the anniversary of '
+                             'the underground nuclear tests conducted in '
+                             'Rajasthan’s Pokhran in 1998'},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'National'}],
+ 'title': 'PM Modi hails scientists, innovators for contribution in combating '
+          'COVID-19',
+ 'title_detail': {'base': 'https://www.thehindu.com/news/national/?service=rss',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'PM Modi hails scientists, innovators for '
+                           'contribution in combating COVID-19'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': 'PTI',
+ 'author_detail': {'name': 'PTI'},
+ 'authors': [{'name': 'PTI'}],
+ 'link': 'https://www.thehindu.com/news/national/pm-modi-hails-scientists-innovators-for-contribution-in-combating-covid-19/article34534370.ece',
+ 'links': [{'href': 'https://www.thehindu.com/news/national/pm-modi-hails-scientists-innovators-for-contribution-in-combating-covid-19/article34534370.ece',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Tue, 11 May 2021 15:50:25 +0530',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=20, tm_sec=25, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': 'National Technology Day marks the anniversary of the underground '
+            'nuclear tests conducted in Rajasthan’s Pokhran in 1998',
+ 'summary_detail': {'base': 'https://www.thehindu.com/news/feeder/default.rss',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': 'National Technology Day marks the anniversary of '
+                             'the underground nuclear tests conducted in '
+                             'Rajasthan’s Pokhran in 1998'},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'National'}],
+ 'title': 'PM Modi hails scientists, innovators for contribution in combating '
+          'COVID-19',
+ 'title_detail': {'base': 'https://www.thehindu.com/news/feeder/default.rss',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'PM Modi hails scientists, innovators for '
+                           'contribution in combating COVID-19'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'guidislink': False,
+ 'href': '',
+ 'id': 'https://www.business-standard.com/article/current-affairs/fresh-recoveries-outnumber-daily-new-covid-19-cases-after-61-days-121051100726_1.html',
+ 'link': 'https://www.business-standard.com/article/current-affairs/fresh-recoveries-outnumber-daily-new-covid-19-cases-after-61-days-121051100726_1.html',
+ 'links': [{'href': 'https://www.business-standard.com/article/current-affairs/fresh-recoveries-outnumber-daily-new-covid-19-cases-after-61-days-121051100726_1.html',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'media_thumbnail': [{'url': 'https://bsmedia.business-standard.com/_media/bs/img/article/2021-05/08/thumb/1620479371-6445.jpg'}],
+ 'published': 'Tue, 11 May 2021 15:49:00 +0530',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=19, tm_sec=0, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': 'For the first time in two months, the total number of people who '
+            'recovered from COVID-19 in the country exceeded the number of '
+            'fresh cases, resulting in a net decline of 30,016 active cases.',
+ 'summary_detail': {'base': 'https://www.business-standard.com/rss/latest.rss',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': 'For the first time in two months, the total '
+                             'number of people who recovered from COVID-19 in '
+                             'the country exceeded the number of fresh cases, '
+                             'resulting in a net decline of 30,016 active '
+                             'cases.'},
+ 'title': 'Fresh recoveries outnumber daily new Covid-19 cases after 61 days',
+ 'title_detail': {'base': 'https://www.business-standard.com/rss/latest.rss',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'Fresh recoveries outnumber daily new Covid-19 '
+                           'cases after 61 days'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': 'DNA Web Team',
+ 'author_detail': {'name': 'DNA Web Team'},
+ 'authors': [{'name': 'DNA Web Team'}],
+ 'guidislink': False,
+ 'id': 'https://www.dnaindia.com/india/report-day-after-bihar-several-corpses-wash-up-on-banks-of-ganga-in-up-s-ghazipur-2889834',
+ 'link': 'https://www.dnaindia.com/india/report-day-after-bihar-several-corpses-wash-up-on-banks-of-ganga-in-up-s-ghazipur-2889834',
+ 'links': [{'href': 'https://www.dnaindia.com/india/report-day-after-bihar-several-corpses-wash-up-on-banks-of-ganga-in-up-s-ghazipur-2889834',
+            'rel': 'alternate',
+            'type': 'text/html'},
+           {'href': 'https://cdn.dnaindia.com/sites/default/files/styles/third/public/2021/05/11/973554-ganga.jpg?itok=i88e7zpI',
+            'length': '52450',
+            'rel': 'enclosure',
+            'type': 'image/jpeg'}],
+ 'published': 'Tue, 11 May 2021 10:04:00 GMT',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=4, tm_sec=0, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': 'Locals complained of stench coming from the bloated, decomposed '
+            'corpses and accused the authorities of ineptitude.',
+ 'summary_detail': {'base': 'https://www.dnaindia.com/feeds/india.xml',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': 'Locals complained of stench coming from the '
+                             'bloated, decomposed corpses and accused the '
+                             'authorities of ineptitude.'},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'India'}],
+ 'title': "Day after Bihar, several corpses wash up on banks of Ganga in UP's "
+          'Ghazipur',
+ 'title_detail': {'base': 'https://www.dnaindia.com/feeds/india.xml',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'Day after Bihar, several corpses wash up on banks '
+                           "of Ganga in UP's Ghazipur"}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': 'Balu Pulipaka',
+ 'author_detail': {'name': 'Balu Pulipaka'},
+ 'authors': [{'name': 'Balu Pulipaka'}],
+ 'guidislink': True,
+ 'id': 'https://www.deccanchronicle.com/nation/current-affairs/110521/10-day-lockdown-in-telangana-from-tomorrow.html',
+ 'link': 'https://www.deccanchronicle.com/nation/current-affairs/110521/10-day-lockdown-in-telangana-from-tomorrow.html',
+ 'links': [{'href': 'https://www.deccanchronicle.com/nation/current-affairs/110521/10-day-lockdown-in-telangana-from-tomorrow.html',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Tue, 11 May 2021 15:08:19 +0530',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=9, tm_min=38, tm_sec=19, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': 'Lockdown will be in effect from 10 am to next morning 6 am, '
+            'permitting only four hour relaxation to the restrictions',
+ 'summary_detail': {'base': 'https://www.deccanchronicle.com/rss_feed/',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': 'Lockdown will be in effect from 10 am to next '
+                             'morning 6 am, permitting only four hour '
+                             'relaxation to the restrictions'},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'Nation'},
+          {'label': None, 'scheme': None, 'term': 'Current Affairs'}],
+ 'title': '10 day lockdown in Telangana from tomorrow',
+ 'title_detail': {'base': 'https://www.deccanchronicle.com/rss_feed/',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': '10 day lockdown in Telangana from tomorrow'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': 'Scroll Staff',
+ 'author_detail': {'name': 'Scroll Staff'},
+ 'authors': [{'name': 'Scroll Staff'}],
+ 'content': [{'base': 'http://feeds.feedburner.com/ScrollinArticles.rss',
+              'language': None,
+              'type': 'text/html',
+              'value': '<p><figure><img '
+                       'src="https://d1u4oo4rb13yy8.cloudfront.net/article/xyjakxcthy-1537339328.jpg" '
+                       '/></figure></p><p>The Consortium of National Law '
+                       'Universities is currently accepting online '
+                       'applications for the Common Law Admission Test or <a '
+                       'href="https://scroll.in/announcements/982867/clat-2021-registration-process-begins-today-heres-how-to-apply">CLAT '
+                       '2021</a>. Eligible and interested candidates can apply '
+                       'for the exam at the CNLU website <a '
+                       'class="link-external" '
+                       'href="https://consortiumofnlus.ac.in/" rel="nofollow '
+                       'noopener" target="_blank">consortiumofnlus.ac.in</a> '
+                       'till May 15.</p><p>An online application fee of Rs '
+                       '4,000 and Rs 3,500 is applicable for open and reserved '
+                       'category candidates respectively.</p><p>CLAT 2021 will '
+                       'be conducted on June 13 from 2.00 PM to 4.00 PM. '
+                       'Earlier, the entrance <a '
+                       'href="https://scroll.in/announcements/982867/clat-2021-registration-process-begins-today-heres-how-to-apply">exam '
+                       'date was set at May 9</a> but was <a '
+                       'href="https://scroll.in/announcements/983373/clat-2021-exam-postponed-to-june-13-due-to-clashes-with-cbse-board-schedule">postponed</a> '
+                       'due to a clash with the CBSE board exams.</p><p><a '
+                       'href="https://scroll.in/announcements/990656/clat-2021-application-deadline-extended-till-april-30">CLAT</a> '
+                       'is conducted for admission to five-year integrated LLB '
+                       'and LLM courses at participating institutions. A total '
+                       'of 22 National Law Universities (NLUs) consider CLAT '
+                       'score for admission to BA LLB, B.Sc LLB, BBA LLB, '
+                       'B.Com LLB, BSW LLB, and LLM programmes. NLUs offer '
+                       '2,538 seats in the LLB course and 742 seats in the LLM '
+                       'course.</p><h2><strong>Eligibility</strong></h2><p>Students '
+                       'who have appeared for Class 12 final examinations in '
+                       '2020 or will appear for the board examinations in 2021 '
+                       'are eligible to apply for the law entrance test. '
+                       'Candidates are required to score 45% marks or its '
+                       'equivalent grade in the qualifying examination. For SC '
+                       'and ST candidates, the required mark is 40%.</p><p>For '
+                       'LLM admission through CLAT 2021 PG, candidates are '
+                       'required to have an...</p><p><a '
+                       'href="https://scroll.in/announcements/994649/clat-2021-application-ends-soon-for-admission-to-top-law-colleges-heres-how-to-apply?utm_source=rss&amp;utm_medium=public">Read '
+                       'more</a></p>'}],
+ 'guidislink': False,
+ 'id': 'https://scroll.in/announcements/994649/clat-2021-application-ends-soon-for-admission-to-top-law-colleges-heres-how-to-apply?utm_source=rss&utm_medium=public',
+ 'link': 'https://scroll.in/announcements/994649/clat-2021-application-ends-soon-for-admission-to-top-law-colleges-heres-how-to-apply?utm_source=rss&utm_medium=public',
+ 'links': [{'href': 'https://scroll.in/announcements/994649/clat-2021-application-ends-soon-for-admission-to-top-law-colleges-heres-how-to-apply?utm_source=rss&utm_medium=public',
+            'rel': 'alternate',
+            'type': 'text/html'},
+           {'href': 'https://d1u4oo4rb13yy8.cloudfront.net/article/xyjakxcthy-1537339328.jpg',
+            'length': '0',
+            'rel': 'enclosure',
+            'type': 'image/jpeg'}],
+ 'published': 'Tue, 11 May 2021 10:30:00 +0000',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=30, tm_sec=0, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': 'Consortium of National Law Universities is currently accepting '
+            'online applications for the Common Law Admission Test or CLAT '
+            '2021.',
+ 'summary_detail': {'base': 'http://feeds.feedburner.com/ScrollinArticles.rss',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': 'Consortium of National Law Universities is '
+                             'currently accepting online applications for the '
+                             'Common Law Admission Test or CLAT 2021.'},
+ 'title': 'CLAT 2021 application ends soon for admission to top law colleges; '
+          'here’s how to apply',
+ 'title_detail': {'base': 'http://feeds.feedburner.com/ScrollinArticles.rss',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'CLAT 2021 application ends soon for admission to '
+                           'top law colleges; here’s how to apply'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': 'Saurabh Singh',
+ 'author_detail': {'name': 'Saurabh Singh'},
+ 'authors': [{'name': 'Saurabh Singh'}],
+ 'comments': 'https://www.financialexpress.com/industry/technology/carl-peis-nothing-to-launch-its-first-product-ear-1-tws-earbuds-in-june/2249940/#respond',
+ 'guidislink': False,
+ 'href': '',
+ 'id': 'https://www.financialexpress.com/?p=2249940',
+ 'link': 'https://www.financialexpress.com/industry/technology/carl-peis-nothing-to-launch-its-first-product-ear-1-tws-earbuds-in-june/2249940/',
+ 'links': [{'href': 'https://www.financialexpress.com/industry/technology/carl-peis-nothing-to-launch-its-first-product-ear-1-tws-earbuds-in-june/2249940/',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'media_content': [{'medium': 'image',
+                    'type': 'image/png',
+                    'url': 'https://images.financialexpress.com/2021/05/Nothing_EAR-1.png'}],
+ 'media_thumbnail': [{'height': '800',
+                      'type': 'image/png',
+                      'url': 'https://images.financialexpress.com/2021/05/Nothing_EAR-1.png',
+                      'width': '1200'}],
+ 'published': '2021-05-11T16:07:00+05:30',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=37, tm_sec=0, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'slash_comments': '0',
+ 'summary': 'OnePlus One vibes, anyone?',
+ 'summary_detail': {'base': 'https://www.financialexpress.com/feed/',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': 'OnePlus One vibes, anyone?'},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'Industry'},
+          {'label': None, 'scheme': None, 'term': 'Technology'},
+          {'label': None, 'scheme': None, 'term': 'OnePlus'}],
+ 'thumbimage': {'url': 'https://images.financialexpress.com/2021/05/Nothing_EAR-1.png?w=200'},
+ 'title': 'Carl Pei’s Nothing to launch its first product, Ear 1 TWS earbuds '
+          'in June',
+ 'title_detail': {'base': 'https://www.financialexpress.com/feed/',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'Carl Pei’s Nothing to launch its first product, '
+                           'Ear 1 TWS earbuds in June'},
+ 'wfw_commentrss': 'https://www.financialexpress.com/industry/technology/carl-peis-nothing-to-launch-its-first-product-ear-1-tws-earbuds-in-june/2249940/feed/'}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': 'Our Bureau',
+ 'author_detail': {'name': 'Our Bureau'},
+ 'authors': [{'name': 'Our Bureau'}],
+ 'link': 'https://www.thehindubusinessline.com/info-tech/other-gadgets/carl-peis-nothing-to-launch-first-product-ear-1-earbuds-in-june/article34534391.ece',
+ 'links': [{'href': 'https://www.thehindubusinessline.com/info-tech/other-gadgets/carl-peis-nothing-to-launch-first-product-ear-1-earbuds-in-june/article34534391.ece',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Tue, 11 May 2021 15:51:22 +0530',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=21, tm_sec=22, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': 'After his exit from OnePlus in October, Pei announced the launch '
+            'of his new consumer technology company in January',
+ 'summary_detail': {'base': 'https://www.thehindubusinessline.com/?service=rss',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': 'After his exit from OnePlus in October, Pei '
+                             'announced the launch of his new consumer '
+                             'technology company in January'},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'Other Gadgets'}],
+ 'title': 'Carl Pei’s Nothing to launch first product, Ear 1 earbuds, in June',
+ 'title_detail': {'base': 'https://www.thehindubusinessline.com/?service=rss',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'Carl Pei’s Nothing to launch first product, Ear 1 '
+                           'earbuds, in June'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': 'FPJ Web Desk',
+ 'author_detail': {'name': 'FPJ Web Desk'},
+ 'authors': [{'name': 'FPJ Web Desk'}],
+ 'guidislink': True,
+ 'id': 'urn:uuid:c96799e8-d582-4cfd-b551-9558616b0b13',
+ 'link': 'https://www.freepressjournal.in/india/covid-19-centre-reviews-vaccination-drive-tells-states-to-prioritize-beneficiaries-who-are-due-to-take-second-dose',
+ 'links': [{'href': 'https://www.freepressjournal.in/india/covid-19-centre-reviews-vaccination-drive-tells-states-to-prioritize-beneficiaries-who-are-due-to-take-second-dose',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': '2021-05-11T10:36:27.335Z',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=36, tm_sec=27, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': '',
+ 'summary_detail': {'base': 'https://prod-qt-images.s3.amazonaws.com/production/freepressjournal/feed.xml',
+                    'language': None,
+                    'type': 'text/plain',
+                    'value': ''},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'India'},
+          {'label': None, 'scheme': None, 'term': 'Topnews'}],
+ 'title': 'COVID-19: Centre reviews vaccination drive, tells states to '
+          'prioritize beneficiaries who are due to take second dose',
+ 'title_detail': {'base': 'https://prod-qt-images.s3.amazonaws.com/production/freepressjournal/feed.xml',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'COVID-19: Centre reviews vaccination drive, tells '
+                           'states to prioritize beneficiaries who are due to '
+                           'take second dose'},
+ 'updated': '2021-05-11T10:36:27.335Z',
+ 'updated_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=36, tm_sec=27, tm_wday=1, tm_yday=131, tm_isdst=0)}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'guidislink': False,
+ 'id': 'https://www.outlookindia.com/website/story/sports-news-covid-19-takes-away-two-gold-winning-hockey-olympians-in-a-day-mk-kaushik-ravinder-pal-singh/382308',
+ 'link': 'https://www.outlookindia.com/website/story/sports-news-covid-19-takes-away-two-gold-winning-hockey-olympians-in-a-day-mk-kaushik-ravinder-pal-singh/382308',
+ 'links': [{'href': 'https://www.outlookindia.com/website/story/sports-news-covid-19-takes-away-two-gold-winning-hockey-olympians-in-a-day-mk-kaushik-ravinder-pal-singh/382308',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': 'Sat, 08 May 2021 23:09:38 +0530',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=8, tm_hour=17, tm_min=39, tm_sec=38, tm_wday=5, tm_yday=128, tm_isdst=0),
+ 'summary': '<p>Kaushik and Ravinder were part of the 1980 Indian hockey team '
+            'that struck gold at Moscow Olympics</p>',
+ 'summary_detail': {'base': 'https://www.outlookindia.com/rss/home',
+                    'language': None,
+                    'type': 'text/html',
+                    'value': '<p>Kaushik and Ravinder were part of the 1980 '
+                             'Indian hockey team that struck gold at Moscow '
+                             'Olympics</p>'},
+ 'title': 'COVID-19 Snatches Hockey Olympians - Kaushik, Ravinder',
+ 'title_detail': {'base': 'https://www.outlookindia.com/rss/home',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'COVID-19 Snatches Hockey Olympians - Kaushik, '
+                           'Ravinder'}}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
+{'author': 'Aashish Gupta',
+ 'author_detail': {'name': 'Aashish Gupta'},
+ 'authors': [{'name': 'Aashish Gupta'}],
+ 'guidislink': True,
+ 'id': 'urn:uuid:4fa39990-0598-471f-99c9-6a5f06a06766',
+ 'link': 'https://www.thequint.com/coronavirus/india-covid-deaths-underestimate-but-solution',
+ 'links': [{'href': 'https://www.thequint.com/coronavirus/india-covid-deaths-underestimate-but-solution',
+            'rel': 'alternate',
+            'type': 'text/html'}],
+ 'published': '2021-05-11T10:30:07.877Z',
+ 'published_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=30, tm_sec=7, tm_wday=1, tm_yday=131, tm_isdst=0),
+ 'summary': 'Journalists are turning to novel sources, but they need to focus '
+            'resources on the right data.',
+ 'summary_detail': {'base': 'https://prod-qt-images.s3.amazonaws.com/production/thequint/feed.xml',
+                    'language': None,
+                    'type': 'text/plain',
+                    'value': 'Journalists are turning to novel sources, but '
+                             'they need to focus resources on the right data.'},
+ 'tags': [{'label': None, 'scheme': None, 'term': 'Coronavirus'},
+          {'label': None, 'scheme': None, 'term': 'India'},
+          {'label': None, 'scheme': None, 'term': 'Opinion'},
+          {'label': None, 'scheme': None, 'term': 'News'}],
+ 'title': 'India’s COVID Death Reporting Is Broken – But Here’s How to Fix It',
+ 'title_detail': {'base': 'https://prod-qt-images.s3.amazonaws.com/production/thequint/feed.xml',
+                  'language': None,
+                  'type': 'text/plain',
+                  'value': 'India’s COVID Death Reporting Is Broken – But '
+                           'Here’s How to Fix It'},
+ 'updated': '2021-05-11T10:30:07.877Z',
+ 'updated_parsed': time.struct_time(tm_year=2021, tm_mon=5, tm_mday=11, tm_hour=10, tm_min=30, tm_sec=7, tm_wday=1, tm_yday=131, tm_isdst=0)}
+\n= xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx =\n
 
 
 
