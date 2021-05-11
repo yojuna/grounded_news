@@ -1,14 +1,18 @@
 import feedparser
 from pprint import pprint
 
-link = 'https://www.thehindu.com/news/feeder/default.rss'
+import config
+
+links_dict = config.rss_links
+
+links = list(links_dict.values())
+
+NewsFeed = feedparser.parse(links[0])
 
 
-NewsFeed = feedparser.parse(link)
+# print('Number of RSS posts :', len(NewsFeed.entries))
 
-print('Number of RSS posts :', len(NewsFeed.entries))
+# # entry = NewsFeed.entries[1]
+# # print('Post Title :',entry.title)
 
-# entry = NewsFeed.entries[1]
-# print('Post Title :',entry.title)
-
-pprint(NewsFeed)
+# pprint(NewsFeed)

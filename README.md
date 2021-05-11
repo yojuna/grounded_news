@@ -5,7 +5,7 @@ Project roadmap:
 2. cluster news entries of the same stories
 	- use text similarity algos initially; go for ml only if this does not work
 3. curate news sources according to their position on the political spectrum
-4. bundle as a mobile app
+4. bundle as a mobile app / web app
 5. test heavily
 6. UI/UX
 7. publish
@@ -21,6 +21,6 @@ Hoping to get some traction and working on this project collaboratively.
 
 NOTES:
 
-There is no reason as to why we cannot have a clean, reliable news aggregator that works well.
+There is no reason as to why we cannot have a clean, reliable news aggregator that works well
 
 
