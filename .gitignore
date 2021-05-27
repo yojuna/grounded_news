@@ -11,3 +11,10 @@ __pycache__/
 node_modules/
 
 package-lock.json
+
+# downloaded/temp files
+*.json
+downloaded_posts.json
+downloaded_posts_file
+downloaded_posts_file.json
+
