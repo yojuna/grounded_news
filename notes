@@ -797,11 +797,9 @@ https://newsapi.org/account
 
 Registration complete
 
-Your API key is: 7b531272b6d54f2083b7ad07d7d8ce8e
-
 For help getting started please look at our getting started guide.
 
-We post API status updates and other news on our Twitter feed, so please follow us there if that's important to you:
+We post status updates and other news on our Twitter feed, so please follow us there if that's important to you:
 
 Follow @NewsAPIorg
 
@@ -984,7 +982,6 @@ from time import time
 
 print('1 ', time())
 # Init
-newsapi = NewsApiClient(api_key='7b531272b6d54f2083b7ad07d7d8ce8e')
 
 # /v2/top-headlines
 print('2 ', time())
