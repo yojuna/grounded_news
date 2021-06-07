@@ -4,7 +4,6 @@ from time import time
 
 print('1 ', time())
 # Init
-newsapi = NewsApiClient(api_key='7b531272b6d54f2083b7ad07d7d8ce8e')
 
 # /v2/top-headlines
 print('2 ', time())
